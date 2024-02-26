@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>file</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+                             <form action="/upload" method="post" enctype="multipart/form-data">
+                                    <div class="container">
+                                        <div class="left">
+                                            <div class="header">
+                                            <h1>Upload your file for prediction</h1>
+                                            <input type="file"  id="fileInput" name="fileInput" >
+                                         </div>
+                                         <div class="right">
+                                            <p>make :</p>
+                                            <input type="text" id="make" name="make"><br>
+                                            <p>modele :</p>
+                                            <input type="text" id="modele" name="modele">
+                                        </div>
+                                    </div>
+                                        
+                            </form>
+
+                            <div class="counte"> 
+
+                                <h4>all data :</h4>
+                                <div class="pos">
+                                    <p>Positive Sentiment </p>
+                                    <p class="num">{{posi}}</p>
+                                    <p class="emoji">&#128516</p>
+                                </div>
+                                <div class="neu">
+                                    <p>Neutral Sentiment </p>
+                                    <p class="num">{{neut}}</p>
+                                    <p class="emoji">&#128528</p>       
+                                </div>
+                                <div class="neg">
+                                    <p>Negative Sentiment </p>
+                                    <p class="num">{{negg}}</p>
+                                    <p class="emoji">&#128542</p>   
+                                </div>
+
+                                <h4>Make and model :</h4>
+                                <div class="pos">
+                                    <p>Positive snetiment </p>
+                                    <p class="num">{{positive}}</p>
+                                    <p class="emoji">&#128516</p>
+                                </div>
+                                <div class="neu">
+                                    <p>Neutral sentiment </p>
+                                    <p class="num">{{neutre}}</p>
+                                    <p class="emoji">&#128528</p>       
+                                </div>
+                                <div class="neg">
+                                    <p>Negative sentiment </p>
+                                    <p class="num">{{negative}}</p>
+                                    <p class="emoji">&#128542</p>   
+                                </div>
+
+                            </div>
+                            <div id="model">
+                                            <p>The best model</p>
+                                            <input type="submit" name="svm_self" value="XGboost">
+                            </div>
+
+                            <h3 class="titre">Sentiment distribution of :  make = {{make}} and modele = {{model}}  </h3>
+                            <h3> Positive : 2 , Neutre : 1 , Negative : 0</h3>
+                            <div class="chart">
+                                {{ chart_html | safe }}
+                            </div>
+
+                            <div class="pie">
+                                
+                            {% if error %}
+                                <p>No data available for the specified make and model.</p>
+                            {% else %}
+                                <img class="chart-image" src="data:image/png;base64,{{ chart_data }}" alt="Pie Chart">
+                            {% endif %}
+                            </div>
+
+                            <h3 class="titre">Sentiment distribution of all data : </h3>
+
+                            <div class="barr">
+                                {{ chart_htmll | safe }}
+                            </div>
+        
+
+    
+</body>
+</html>
